@@ -16,27 +16,35 @@ class ChiTietChiTieuActivity : AppCompatActivity() {
 
         val tenKhoanChi_105 =
             intent.getStringExtra("tenKhoanChi_105").orEmpty()
-
         val soTien_105 =
             intent.getStringExtra("soTien_105").orEmpty()
-
         val ghiChu_105 =
             intent.getStringExtra("ghiChu_105").orEmpty()
 
         val layout_105 = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER_VERTICAL
-            setPadding(24, 24, 24, 24)
+            setPadding(48, 32, 48, 32)
+        }
+
+        val tieuDe_105 = TextView(this).apply {
+            text = "CHI TIẾT KHOẢN CHI"
+            textSize = 24f
+            gravity = Gravity.CENTER
         }
 
         val noiDung_105 = TextView(this).apply {
             text = "Tên khoản chi: $tenKhoanChi_105\n\n" +
                     "Số tiền: $soTien_105 VNĐ\n\n" +
-                    "Ghi chú: $ghiChu_105"
+                    "Ghi chú: " +
+                    if (ghiChu_105.isBlank()) "Không có" else ghiChu_105
             textSize = 18f
+            setPadding(0, 32, 0, 0)
         }
 
+        layout_105.addView(tieuDe_105)
         layout_105.addView(noiDung_105)
+
         setContentView(layout_105)
     }
 }

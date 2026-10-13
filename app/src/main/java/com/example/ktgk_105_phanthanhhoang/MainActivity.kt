@@ -1,3 +1,4 @@
+
 package com.example.ktgk_105_phanthanhhoang
 
 import android.content.Intent
@@ -26,8 +27,12 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title =
             "Phan Thanh Hoang - 23115141122105 - Quản lý chi tiêu cá nhân"
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        ViewCompat.setOnApplyWindowInsetsListener(
+            findViewById(R.id.main)
+        ) { v, insets ->
+            val systemBars =
+                insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
             v.setPadding(
                 systemBars.left,
                 systemBars.top,
@@ -37,11 +42,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        edtTenKhoanChi_105 = findViewById(R.id.edtTenKhoanChi_105)
-        edtSoTien_105 = findViewById(R.id.edtSoTien_105)
-        edtGhiChu_105 = findViewById(R.id.edtGhiChu_105)
-        btnThemKhoanChi_105 = findViewById(R.id.btnThemKhoanChi_105)
-        btnXemChiTiet_105 = findViewById(R.id.btnXemChiTiet_105)
+        edtTenKhoanChi_105 =
+            findViewById(R.id.edtTenKhoanChi_105)
+        edtSoTien_105 =
+            findViewById(R.id.edtSoTien_105)
+        edtGhiChu_105 =
+            findViewById(R.id.edtGhiChu_105)
+        btnThemKhoanChi_105 =
+            findViewById(R.id.btnThemKhoanChi_105)
+        btnXemChiTiet_105 =
+            findViewById(R.id.btnXemChiTiet_105)
 
         btnThemKhoanChi_105.setOnClickListener {
             xuLyThemKhoanChi_105()
@@ -53,12 +63,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun xuLyThemKhoanChi_105() {
-        val tenKhoanChi_105 = edtTenKhoanChi_105.text.toString().trim()
-        val soTienText_105 = edtSoTien_105.text.toString().trim()
-        val ghiChu_105 = edtGhiChu_105.text.toString().trim()
+        val tenKhoanChi_105 =
+            edtTenKhoanChi_105.text.toString().trim()
+        val soTienText_105 =
+            edtSoTien_105.text.toString().trim()
+        val ghiChu_105 =
+            edtGhiChu_105.text.toString().trim()
 
         if (tenKhoanChi_105.isEmpty()) {
-            edtTenKhoanChi_105.error = "Vui lòng nhập tên khoản chi"
+            edtTenKhoanChi_105.error =
+                "Vui lòng nhập tên khoản chi"
             edtTenKhoanChi_105.requestFocus()
             return
         }
@@ -66,33 +80,66 @@ class MainActivity : AppCompatActivity() {
         val soTien_105 = soTienText_105.toDoubleOrNull()
 
         if (soTien_105 == null || soTien_105 <= 0) {
-            edtSoTien_105.error = "Số tiền phải lớn hơn 0"
+            edtSoTien_105.error =
+                "Số tiền phải là số lớn hơn 0"
             edtSoTien_105.requestFocus()
             return
         }
 
+        val thongBao_105 = if (ghiChu_105.isEmpty()) {
+            "Đã thêm khoản chi: $tenKhoanChi_105 - $soTien_105 VNĐ"
+        } else {
+            "Đã thêm khoản chi: $tenKhoanChi_105 - " +
+                    "$soTien_105 VNĐ\nGhi chú: $ghiChu_105"
+        }
+
         Toast.makeText(
             this,
-            "Đã kiểm tra hợp lệ: $tenKhoanChi_105 - " +
-                    "${soTien_105.toLong()} VNĐ",
+            thongBao_105,
             Toast.LENGTH_LONG
         ).show()
     }
 
     private fun moChiTietKhoanChi_105() {
-        val intent_105 = Intent(this, ChiTietChiTieuActivity::class.java)
+        val tenKhoanChi_105 =
+            edtTenKhoanChi_105.text.toString().trim()
+        val soTienText_105 =
+            edtSoTien_105.text.toString().trim()
+        val ghiChu_105 =
+            edtGhiChu_105.text.toString().trim()
+
+        if (tenKhoanChi_105.isEmpty()) {
+            edtTenKhoanChi_105.error =
+                "Vui lòng nhập tên khoản chi"
+            edtTenKhoanChi_105.requestFocus()
+            return
+        }
+
+        val soTien_105 = soTienText_105.toDoubleOrNull()
+
+        if (soTien_105 == null || soTien_105 <= 0) {
+            edtSoTien_105.error =
+                "Số tiền phải lớn hơn 0"
+            edtSoTien_105.requestFocus()
+            return
+        }
+
+        val intent_105 = Intent(
+            this,
+            ChiTietChiTieuActivity::class.java
+        )
 
         intent_105.putExtra(
             "tenKhoanChi_105",
-            edtTenKhoanChi_105.text.toString().trim()
+            tenKhoanChi_105
         )
         intent_105.putExtra(
             "soTien_105",
-            edtSoTien_105.text.toString().trim()
+            soTienText_105
         )
         intent_105.putExtra(
             "ghiChu_105",
-            edtGhiChu_105.text.toString().trim()
+            ghiChu_105
         )
 
         startActivity(intent_105)
