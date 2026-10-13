@@ -14,13 +14,17 @@ class ChiTietChiTieuActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Chi tiết khoản chi"
 
+        // Nhận dữ liệu từ MainActivity qua Intent
         val tenKhoanChi_105 =
             intent.getStringExtra("tenKhoanChi_105").orEmpty()
+
         val soTien_105 =
             intent.getStringExtra("soTien_105").orEmpty()
+
         val ghiChu_105 =
             intent.getStringExtra("ghiChu_105").orEmpty()
 
+        // Tạo giao diện màn hình chi tiết
         val layout_105 = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER_VERTICAL
@@ -38,6 +42,7 @@ class ChiTietChiTieuActivity : AppCompatActivity() {
                     "Số tiền: $soTien_105 VNĐ\n\n" +
                     "Ghi chú: " +
                     if (ghiChu_105.isBlank()) "Không có" else ghiChu_105
+
             textSize = 18f
             setPadding(0, 32, 0, 0)
         }
